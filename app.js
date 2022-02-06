@@ -2,6 +2,8 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 
+require('dotenv').config();
+
 const contactsRouter = require('./routes/api/contacts');
 
 const app = express();
@@ -12,7 +14,6 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// 1st argument - first part of the path, the second one is in routes, 1st router.get; 2nd argument - handler function
 app.use('/api/contacts', contactsRouter);
 
 app.use((req, res) => {

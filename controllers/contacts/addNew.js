@@ -1,17 +1,18 @@
-const contacts = require('../../models/contacts');
+const { Contact, schemas } = require('../../models/contact');
 const CreateError = require('http-errors');
-const { contactSchema } = require('../../schema');
 
 const addNew = async (req, res, next) => {
   try {
-    const { error } = contactSchema.validate(req.body);
+    const { error } = schemas.add.validate(req.body);
     if (error) {
       throw new CreateError(400, error.message);
     }
-    const { name, email, phone } = req.body;
-    const data = await contacts.addContact(name, email, phone);
+    const data = await Contact.create(req.body);
     res.status(201).json(data);
   } catch (error) {
+    if (error.message.toLowerCase().includes('validation failed')) {
+      error.status = 400;
+    }
     next(error);
   }
 };
