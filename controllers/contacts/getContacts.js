@@ -1,11 +1,8 @@
-const contacts = require('../../models/contacts');
-
-//  GET /api/products
+const { Contact } = require('../../models/contact');
 
 const getContacts = async (req, res, next) => {
   try {
-    const data = await contacts.listContacts();
-    console.log(data);
+    const data = await Contact.find({}, '-createdAt -updatedAt');
     res.json(data);
   } catch (error) {
     next(error);
