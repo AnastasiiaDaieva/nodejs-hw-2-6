@@ -2,7 +2,7 @@ const { schemas } = require('../../models/contact');
 const CreateError = require('http-errors');
 const updateStatusContact = require('./updateStatusContact');
 
-const patchById = async (req, res, next) => {
+const patchFavById = async (req, res, next) => {
   try {
     const { error } = schemas.patchFav.validate(req.body);
     if (error) {
@@ -12,7 +12,6 @@ const patchById = async (req, res, next) => {
     const { contactId } = req.params;
 
     const result = await updateStatusContact(contactId, req.body);
-    console.log(result);
 
     if (!result) {
       throw new CreateError(404, 'Not found');
@@ -28,4 +27,4 @@ const patchById = async (req, res, next) => {
   }
 };
 
-module.exports = patchById;
+module.exports = patchFavById;

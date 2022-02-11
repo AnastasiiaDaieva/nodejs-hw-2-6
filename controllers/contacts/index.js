@@ -3,7 +3,7 @@ const getById = require('./getById');
 const updateById = require('./updateById');
 const removeById = require('./removeById');
 const addNew = require('./addNew');
-const patchById = require('./patchById');
+const patchFavById = require('./patchFavById');
 const updateStatusContact = require('./updateStatusContact');
 
 module.exports = {
@@ -12,6 +12,6 @@ module.exports = {
   updateById,
   removeById,
   addNew,
-  patchById,
+  patchFavById,
   updateStatusContact,
 };

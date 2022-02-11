@@ -20,11 +20,7 @@ const userSchema = Schema(
     },
     token: {
       type: String,
-      default: null,
-    },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
+      default: '',
     },
   },
   { versionKey: false, timestamps: true },
@@ -32,13 +28,16 @@ const userSchema = Schema(
 
 const User = model('user', userSchema);
 
-const registerJoiSchema = Joi.object({
+const signupJoiSchema = Joi.object({
   email: Joi.string().required(),
-  password: Joi.string,
+  password: Joi.string().required(),
 });
 
+const patchSubscriptionJoiSchema = Joi.object({ subscription: Joi.string() });
+
 const schemas = {
-  register: registerJoiSchema,
+  signup: signupJoiSchema,
+  patchSub: patchSubscriptionJoiSchema,
 };
 
 module.exports = { User, schemas };
