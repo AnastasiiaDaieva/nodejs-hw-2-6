@@ -2,9 +2,11 @@ const express = require('express');
 
 const router = express.Router();
 
+const path = require('path');
+
 const ctrl = require('../../controllers/users');
 
-const { authenticate } = require('../../middlewares');
+const { authenticate, upload } = require('../../middlewares');
 
 router.post('/signup', ctrl.registerUser);
 
@@ -15,5 +17,12 @@ router.get('/logout', authenticate, ctrl.getCurrentUser);
 router.get('/current', authenticate, ctrl.logoutUser);
 
 router.patch('/subscription', authenticate, ctrl.patchSubById);
+
+router.patch(
+  '/avatars',
+  authenticate,
+  upload.single('avatar'),
+  ctrl.patchAvatar,
+);
 
 module.exports = router;

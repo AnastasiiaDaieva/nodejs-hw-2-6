@@ -2,6 +2,8 @@ const bcryptjs = require('bcryptjs');
 const { User, schemas } = require('../../models/user');
 const CreateError = require('http-errors');
 
+const gravatar = require('gravatar');
+
 const registerUser = async (req, res, next) => {
   try {
     const { error } = schemas.signup.validate(req.body);
@@ -18,7 +20,9 @@ const registerUser = async (req, res, next) => {
     const salt = await bcryptjs.genSalt(10);
     const hashPassword = await bcryptjs.hash(password, salt);
 
-    await User.create({ email, password: hashPassword });
+    const avatarURL = gravatar.url(email);
+
+    await User.create({ avatarURL, email, password: hashPassword });
 
     res.status(201).json({ user: { email } });
   } catch (error) {
