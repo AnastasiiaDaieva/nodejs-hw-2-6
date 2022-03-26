@@ -16,6 +16,9 @@ router.get('/logout', authenticate, ctrl.getCurrentUser);
 
 router.get('/current', authenticate, ctrl.logoutUser);
 
+router.get('/verify/:verificationToken', authenticate, ctrl.verifyUser);
+router.post('/verify', authenticate, ctrl.resendVerification);
+
 router.patch('/subscription', authenticate, ctrl.patchSubById);
 
 router.patch(
